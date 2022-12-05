@@ -1,16 +1,1 @@
-sequenceDiagram
-Browser->>Server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
-loop req
-Server->>Server: Server store req.body.note to an array called notes, updating the server.
-end
-Server-->>Browser: URL redirect to /notes
-Browser->>Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
-Server-->>Browser: HTML-code
-Browser->>Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
-Server-->>Browser: main.css
-Browser->>Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
-Server-->>Browser: main.js
-Note right of Browser: browser starts executing js-code that requests JSON data from server
-Browser->>Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
-Server-->>Browser: [{content: "HTML is easy", date: "2019-05-23"} ...]
-Note right of Browser: browser executes the event handler that renders notes to display
+[![](https://mermaid.ink/img/pako:eNqtVMFum0AQ_ZXRnm2wcePEHHKoGjWq0iSq3VM3qsbsAJvALtldnCDL_95dcNwc3FaVzAU0D96bN2-HLcu0IJYyS88tqYw-SSwM1lx9NPrFkhlfXi7JbMikcL1a3cP93XIFpXONTePYulZIslFmo5IqK9WTjHIZ0yvWTUXYNLGil59KO-Kq0roBQ89cgb8Gznfkwx2s04bCa9Faiy4Kn4LTgArQGOwgw6oiAaFuR9A2Ap1UBbiSwPYMEVekBFd7Aa-wN5LC9283nllIQ5kLpHHP8kenn6_-y-jAdUT2evX1ZhymfCKlGqXy8HGx3-DptB7_IhWw2xCSkUXpQOdwwNfDg48UjbNAr5S1fViPth-HDw1diLol6_Evy7tb8HEiQG50vY_zRD4Cr-9Vq6NOfmwzrRwplwJnIS6Qvl-0HWej0BKFejKZLsaTs3Ey42wHURQ9_NP5YJlsfzxp4wWgRCUqD-29K0HGDqc5nEghbVNhx0asJuPnK_xibsPCcOYpauIsdCLQPHHG1c6_h63Ty05lLHWmpRHrN-JtiVmaY2UP1Ssh_XYdipVGr87SLXNdE34BhbTOU_pZ5LII9dZUvvw25QBHhXRlu44yXcdWitInW24W83iezC8wmdH8fIZns5nI1tPFRZ58mObifDJNkO12u1-hiI7P?type=png)](https://mermaid.live/edit#pako:eNqtVMFum0AQ_ZXRnm2wcePEHHKoGjWq0iSq3VM3qsbsAJvALtldnCDL_95dcNwc3FaVzAU0D96bN2-HLcu0IJYyS88tqYw-SSwM1lx9NPrFkhlfXi7JbMikcL1a3cP93XIFpXONTePYulZIslFmo5IqK9WTjHIZ0yvWTUXYNLGil59KO-Kq0roBQ89cgb8Gznfkwx2s04bCa9Faiy4Kn4LTgArQGOwgw6oiAaFuR9A2Ap1UBbiSwPYMEVekBFd7Aa-wN5LC9283nllIQ5kLpHHP8kenn6_-y-jAdUT2evX1ZhymfCKlGqXy8HGx3-DptB7_IhWw2xCSkUXpQOdwwNfDg48UjbNAr5S1fViPth-HDw1diLol6_Evy7tb8HEiQG50vY_zRD4Cr-9Vq6NOfmwzrRwplwJnIS6Qvl-0HWej0BKFejKZLsaTs3Ey42wHURQ9_NP5YJlsfzxp4wWgRCUqD-29K0HGDqc5nEghbVNhx0asJuPnK_xibsPCcOYpauIsdCLQPHHG1c6_h63Ty05lLHWmpRHrN-JtiVmaY2UP1Ssh_XYdipVGr87SLXNdE34BhbTOU_pZ5LII9dZUvvw25QBHhXRlu44yXcdWitInW24W83iezC8wmdH8fIZns5nI1tPFRZ58mObifDJNkO12u1-hiI7P)
