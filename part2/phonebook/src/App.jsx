@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PersonForm from "./PersonForm";
 import Persons from "./Persons";
 import Search from "./Search";
-import axios from "axios";
+import phonebook from "./services/phonebook";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -12,9 +12,9 @@ const App = () => {
   const [results, setResults] = useState(persons);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/phonebook").then((response) => {
-      setPersons(response.data);
-      setResults(response.data);
+    phonebook.getAllContacts().then((initialPhonebook) => {
+      setPersons(initialPhonebook);
+      setResults(initialPhonebook);
     });
   }, []);
 
@@ -36,8 +36,15 @@ const App = () => {
         newPhone={newPhone}
         setNewPhone={setNewPhone}
         setResults={setResults}
+        phonebook={phonebook}
       />
-      <Persons results={results} />
+      <Persons
+        persons={persons}
+        results={results}
+        setPersons={setPersons}
+        setResults={setResults}
+        phonebook={phonebook}
+      />
     </div>
   );
 };

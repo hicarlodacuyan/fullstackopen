@@ -6,6 +6,7 @@ const PersonForm = ({
   newPhone,
   setNewPhone,
   setResults,
+  phonebook,
 }) => {
   const existsInPhonebook = (phonebook, newName) =>
     phonebook.some((person) => person.name === newName);
@@ -13,16 +14,41 @@ const PersonForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const newPerson = { name: newName, phone: newPhone };
+
     if (existsInPhonebook(persons, newName)) {
-      alert(`${newName} is already added to phonebook`);
+      if (
+        confirm(
+          `${newName} is already added to phonebook, replace the old number with a new one?`
+        )
+      ) {
+        const foundElement = persons.find((person) => person.name === newName);
+        const { id } = foundElement;
+
+        phonebook.updateContact(id, newPerson).then((returnedPerson) => {
+          setPersons(
+            persons.map((person) =>
+              person.id !== id ? person : returnedPerson
+            )
+          );
+
+          setResults(
+            persons.map((person) =>
+              person.id !== id ? person : returnedPerson
+            )
+          );
+        });
+      }
+
       setNewName("");
       setNewPhone("");
       return;
     }
 
-    const person = { id: persons.length + 1, name: newName, phone: newPhone };
-    setPersons([...persons].concat(person));
-    setResults([...persons].concat(person));
+    phonebook.createContact(newPerson).then((returnedNote) => {
+      setPersons([...persons].concat(returnedNote));
+      setResults([...persons].concat(returnedNote));
+    });
 
     setNewName("");
     setNewPhone("");
