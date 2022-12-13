@@ -7,6 +7,7 @@ const PersonForm = ({
   setNewPhone,
   setResults,
   phonebook,
+  setStatusMessage,
 }) => {
   const existsInPhonebook = (phonebook, newName) =>
     phonebook.some((person) => person.name === newName);
@@ -25,19 +26,31 @@ const PersonForm = ({
         const foundElement = persons.find((person) => person.name === newName);
         const { id } = foundElement;
 
-        phonebook.updateContact(id, newPerson).then((returnedPerson) => {
-          setPersons(
-            persons.map((person) =>
-              person.id !== id ? person : returnedPerson
-            )
-          );
+        phonebook
+          .updateContact(id, newPerson)
+          .then((returnedPerson) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== id ? person : returnedPerson
+              )
+            );
 
-          setResults(
-            persons.map((person) =>
-              person.id !== id ? person : returnedPerson
-            )
-          );
-        });
+            setResults(
+              persons.map((person) =>
+                person.id !== id ? person : returnedPerson
+              )
+            );
+          })
+          .catch((error) => {
+            setStatusMessage({
+              text: `Information of ${newPerson.name} has already been removed from server. Please refresh your browser.`,
+              status: "error",
+            });
+
+            setTimeout(() => {
+              setStatusMessage({ text: "", status: "" });
+            }, 5000);
+          });
       }
 
       setNewName("");
@@ -48,6 +61,14 @@ const PersonForm = ({
     phonebook.createContact(newPerson).then((returnedNote) => {
       setPersons([...persons].concat(returnedNote));
       setResults([...persons].concat(returnedNote));
+      setStatusMessage({
+        text: `${newPerson.name} has been added`,
+        status: "success",
+      });
+
+      setTimeout(() => {
+        setStatusMessage({ text: "", status: "" });
+      }, 5000);
     });
 
     setNewName("");

@@ -3,6 +3,7 @@ import PersonForm from "./PersonForm";
 import Persons from "./Persons";
 import Search from "./Search";
 import phonebook from "./services/phonebook";
+import Notification from "./Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -10,6 +11,7 @@ const App = () => {
   const [newPhone, setNewPhone] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState(persons);
+  const [statusMessage, setStatusMessage] = useState({ text: "", status: "" });
 
   useEffect(() => {
     phonebook.getAllContacts().then((initialPhonebook) => {
@@ -21,6 +23,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={statusMessage} />
       <Search
         persons={persons}
         searchQuery={searchQuery}
@@ -37,6 +40,7 @@ const App = () => {
         setNewPhone={setNewPhone}
         setResults={setResults}
         phonebook={phonebook}
+        setStatusMessage={setStatusMessage}
       />
       <Persons
         persons={persons}
