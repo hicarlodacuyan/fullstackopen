@@ -15,7 +15,7 @@ const PersonForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newPerson = { name: newName, phone: newPhone };
+    const newPerson = { name: newName, number: newPhone };
 
     if (existsInPhonebook(persons, newName)) {
       if (

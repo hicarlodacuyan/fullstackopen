@@ -2,7 +2,7 @@ const Persons = ({ persons, setPersons, results, setResults, phonebook }) => {
   const handleDelete = (name, id) => {
     if (confirm(`Delete ${name}?`)) {
       phonebook.deleteContact(id).then((response) => {
-        if (response.status === 200) {
+        if (response.status === 204) {
           const updatedContacts = persons.filter((person) => person.id !== id);
 
           setPersons(updatedContacts);
@@ -23,7 +23,7 @@ const Persons = ({ persons, setPersons, results, setResults, phonebook }) => {
         {results.length > 0 &&
           results.map((person) => (
             <p key={person.id}>
-              {`${person.name}: ${person.phone}`}
+              {`${person.name}: ${person.number}`}
               <button onClick={() => handleDelete(person.name, person.id)}>
                 delete
               </button>
