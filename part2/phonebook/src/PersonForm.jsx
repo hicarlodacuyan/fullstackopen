@@ -58,18 +58,29 @@ const PersonForm = ({
       return;
     }
 
-    phonebook.createContact(newPerson).then((returnedNote) => {
-      setPersons([...persons].concat(returnedNote));
-      setResults([...persons].concat(returnedNote));
-      setStatusMessage({
-        text: `${newPerson.name} has been added`,
-        status: "success",
-      });
+    phonebook.createContact(newPerson)
+      .then((createdPerson) => {
+        setPersons([...persons].concat(createdPerson));
+        setResults([...persons].concat(createdPerson));
+        setStatusMessage({
+          text: `${newPerson.name} has been added`,
+          status: "success",
+        });
 
-      setTimeout(() => {
-        setStatusMessage({ text: "", status: "" });
-      }, 5000);
-    });
+        setTimeout(() => {
+          setStatusMessage({ text: "", status: "" });
+        }, 5000);
+      })
+      .catch(error => {
+        setStatusMessage({
+          text: `${error.response.data.error}`,
+          status: "error",
+        });
+
+        setTimeout(() => {
+          setStatusMessage({ text: "", status: "" });
+        }, 5000);{}
+      });
 
     setNewName("");
     setNewPhone("");
